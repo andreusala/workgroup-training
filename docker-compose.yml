@@ -1,0 +1,19 @@
+version: "3"
+services:
+  phpfpm:
+    image: andreusala/phpfpm-7.4-composer2
+    build:
+      context: docker-images/phpfpm/7.4-fpm-composer2/
+      args:
+        C_UID: ${C_UID-1001}
+        C_GID: ${C_GID-1001}
+    volumes:
+      - .:/var/www/html
+      - ~/.composer/cache:/var/www/.composer/cache
+      - ~/.composer/auth.json:/var/www/.composer/auth.json
+      - sockdata:/sock
+    environment:
+      PHP_IDE_CONFIG: serverName=localhost
+      COMPOSER_MEMORY_LIMIT: -1
+volumes:
+  sockdata:

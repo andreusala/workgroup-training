@@ -14,10 +14,35 @@ class LastDigitTest extends TestCase
         $this->lastDigit = new LastDigit();
     }
 
-    public function testExecute(): void
+    /**
+     * @dataProvider lastDigitProvider
+     *
+     * @param int $number
+     * @param int $lastDigit
+     * @return void
+     */
+    public function testExecute(int $number, int $lastDigit): void
     {
-        $this->assertTrue(true);
+        $result = $this->lastDigit->execute($number);
+        $this->assertEquals($result, $lastDigit);
     }
 
-
+    /**
+     * @return int[]
+     */
+    public function lastDigitProvider(): array
+    {
+        return [
+            [1, 1],
+            [2, 9],
+            [3, 0],
+            [4, 4],
+            [5, 9],
+            [6, 5],
+            [7, 6],
+            [10, 5],
+            [100, 0],
+            [1000000, 0],
+        ];
+    }
 }
